@@ -11,3 +11,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#root.pagebase {
+  display: grid;
+  /* grid-template-areas: "topHeader" "header" "main"; */
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto 1fr;
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100vh;
+}
+
+.leaflet-left {
+  left: 95%;
+}
+
