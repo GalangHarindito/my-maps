@@ -1,10 +1,11 @@
 import { FiMapPin, FiMap, FiRefreshCw } from "react-icons/fi";
+import FindLocation from "component/fragment/menuFeatures/findLocation";
 
 export const menuSidebar = [
     {
         id: 1,
         menuLabel: 'Find Location',
-        icon: <FiMapPin />
+        icon: <FiMapPin />,
     },
     {
         id: 2,

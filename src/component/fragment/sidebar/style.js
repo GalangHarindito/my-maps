@@ -6,7 +6,7 @@ export const Wrapper = styled.aside`
   height: 100vh;
   z-index: 410;
   background-color: #fff;
-  transition: 0.5s linear;
+  transition: 0.2s linear;
 
   &.closedBar {
     width: 2.9rem;
@@ -21,7 +21,7 @@ export const SectionTitle = styled.section`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  transition: visibility 0.4s linear;
+  transition: visibility 0.1s linear;
 
   &.hideTitle {
     visibility: hidden;
@@ -47,7 +47,7 @@ export const Devider = styled.div`
   border-bottom: 2px solid black;
   margin: 0 1.2rem;
   overflow: hidden;
-  transition: visibility 0.3s easy-out;
+  transition: visibility 0.1s easy-out;
 
   &.hideDevider {
     visibility: hidden;

@@ -7,9 +7,25 @@ import {
   WrapperFeaturesMenu,
 } from "./style";
 import { useState } from "react";
+import FindLocation from "component/fragment/menuFeatures/findLocation";
 
-const MenuBar = ({ children }) => {
+const MenuBar = () => {
   const [id, setId] = useState("");
+
+  let menuFeatures;
+  switch (id) {
+    case 1:
+      menuFeatures = <FindLocation />;
+      break;
+    case 2:
+      menuFeatures = "kkkk";
+      break;
+    case 3:
+      menuFeatures = "jjjj";
+      break;
+    default:
+      
+  }
 
   const handleClick = (id) => {
     setId(id);
@@ -30,7 +46,7 @@ const MenuBar = ({ children }) => {
                 <WrapperFeaturesMenu
                   className={id === item.id ? "displayChildren" : ""}
                 >
-                  <p>ssssssssssssssss</p>
+                  {menuFeatures}
                 </WrapperFeaturesMenu>
               </>
             );
