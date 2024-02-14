@@ -5,7 +5,7 @@ export const Wrapper = styled.aside`
   width: 18rem;
   height: 100vh;
   z-index: 410;
-  background-color: #fff;
+  background-color: #EFEFEF;
   transition: 0.2s linear;
 
   &.closedBar {

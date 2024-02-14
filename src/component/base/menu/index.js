@@ -38,7 +38,7 @@ const MenuBar = () => {
           menuSidebar.map((item) => {
             return (
               <>
-                <ChildBar key={item.id} onClick={() => handleClick(item.id)}>
+                <ChildBar className={id === item.id ? 'active' : ''} key={item.id} onClick={() => handleClick(item.id)}>
                   <Icon>{item.icon}</Icon>
                   <TitleBar>{item.menuLabel}</TitleBar>
                 </ChildBar>

@@ -15,9 +15,17 @@ export const ChildBar = styled.ul`
   padding: 1rem;
   height: 2rem;
   overflow: hidden;
+  margin: 0;
 
   &:hover {
-    background-color: red;
+    background-color: #B9D5FF;
+    font-weight:700;
+  }
+  
+  &.active {
+    background-color: #287FFF;
+    font-weight: bold;
+    color: #FFF;
   }
 `;
 

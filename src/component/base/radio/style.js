@@ -29,8 +29,8 @@ from {
 export const ItemRadio = styled.div`
   border: 1px solid;
   border-radius: 1em;
-  width: 1.2em;
-  height: 1.2em;
+  width: 1rem;
+  height: 1rem;
   position: absolute;
   top: 0;
   left: -1.5em;
@@ -50,8 +50,8 @@ export const ItemRadio = styled.div`
     border: solid #263238;
     border-radius: 1em;
     background-color: #263238;
-    width: 0.3em;
-    height: 0.3em;
+    width: 0.2rem;
+    height: 0.2rem;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
