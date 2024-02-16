@@ -34,4 +34,12 @@ export const SelectInput = styled.select`
       border-color: #bababa;
     }
   }
+  &.error {
+    border-color: #e90808;
+  }
+`;
+
+export const ErrorMessage = styled.div`
+  color: #e90808;
+  font-size: 0.8rem;
 `;

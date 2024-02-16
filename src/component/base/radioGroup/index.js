@@ -8,7 +8,7 @@ const RadioGroup = ({data, onChange, valueRadio}) => {
       {data &&
         data.map((item) => {
           return (
-            <Wrapper>
+            <Wrapper key={item.id}>
               <Radio
                 id={`radio-${item.id}`}
                 label={item.label}

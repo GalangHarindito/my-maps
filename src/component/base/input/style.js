@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
 
 export const InputLabel = styled.div`
     margin-bottom: 0.4rem;
+    font-weight: 600;
 
 `
 
@@ -21,4 +22,18 @@ export const InputText = styled.input`
     &:focus{
         border-color: #bababa;
     }
+
+    &.error{
+        border-color: #E90808; 
+    }
+
+    &::placeholder{
+        font-style: italic;
+        font-size: 0.9rem;
+    }
+`
+
+export const ErrorMessage = styled.div`
+    color: #E90808;
+    font-size: 0.8rem;
 `

@@ -37,7 +37,7 @@ const MenuBar = () => {
         {menuSidebar &&
           menuSidebar.map((item) => {
             return (
-              <>
+              <div key={item.id}>
                 <ChildBar className={id === item.id ? 'active' : ''} key={item.id} onClick={() => handleClick(item.id)}>
                   <Icon>{item.icon}</Icon>
                   <TitleBar>{item.menuLabel}</TitleBar>
@@ -48,7 +48,7 @@ const MenuBar = () => {
                 >
                   {menuFeatures}
                 </WrapperFeaturesMenu>
-              </>
+              </div>
             );
           })}
       </WrapperBar>

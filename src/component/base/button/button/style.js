@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ButtonStyle = styled.button`
-  width: 4rem;
+  width: 6rem;
     padding: 0.5rem;
   border-style: none;
   box-sizing: border-box;
@@ -34,7 +34,25 @@ export const ButtonStyle = styled.button`
     background-color: #B0BBCD;
   }
 
-  &:hover{
+  &.info{
+    background-color: #6032FF;
+  }
+
+  &.dash{
+    background-color: transparent;
+    border: 2px dashed #000;
+    color: #000;
+  }
+
+  &:hover:not(.dash){
     box-shadow: 0px 7px 20px -7px rgba(0,0,0,0.72);
+  }
+
+  &.large{
+    width: 100%;
+  }
+
+  &.disabled{
+    background-color: #8CBAFF;
   }
 `;

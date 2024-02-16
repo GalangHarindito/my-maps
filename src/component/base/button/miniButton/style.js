@@ -1,17 +1,17 @@
 import styled from "styled-components";
 
 export const Button = styled.button`
-    width : 2rem;
-    height: 2rem;
-    padding: 0.2rem;
-    background-color: #EA4C89;
-    border-style: none;
-    box-sizing: border-box;
-  color: #FFFFFF;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.2rem;
+  background-color: #ea4c89;
+  border-style: none;
+  box-sizing: border-box;
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
   font-weight: 700;
- 
+
   line-height: 20px;
   list-style: none;
   margin: 0;
@@ -25,6 +25,11 @@ export const Button = styled.button`
   -webkit-user-select: none;
   touch-action: manipulation;
   display: flex;
-    justify-content: center;
-    align-items: center;
-`
+  justify-content: center;
+  align-items: center;
+
+  &.transparent{
+    background-color: transparent;
+    color: ${props => props.color ? props.color : "#000"};;
+  }
+`;

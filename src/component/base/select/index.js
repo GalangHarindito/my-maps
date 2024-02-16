@@ -1,10 +1,10 @@
-import { Wrapper, SelectLabel, SelectInput } from "./style";
+import { Wrapper, SelectLabel, SelectInput, ErrorMessage } from "./style";
 
-const Select = ({ label, name, options, id, onChange }) => {
+const Select = ({ label, name, options, id, onChange, error }) => {
   return (
     <Wrapper>
       <SelectLabel htmlFor={`${id}`}>{label}</SelectLabel>
-      <SelectInput id={`${id}`} name={name} onChange={(e) => onChange(e)}>
+      <SelectInput id={`${id}`} name={name} onChange={(e) => onChange(e)} className={error && 'error'}>
         <option value="">Select {label}</option>
         {options &&
           options.map((item) => {
@@ -15,6 +15,9 @@ const Select = ({ label, name, options, id, onChange }) => {
             );
           })}
       </SelectInput>
+      <ErrorMessage>
+        {error}
+      </ErrorMessage>
     </Wrapper>
   );
 };
