@@ -42,10 +42,11 @@ const FindLocationForm = ({ typeCoordinate, zoneOption, rowOptions }) => {
   });
 
   const onSubmit = (data) => {
+    
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-        console.log(data, "kkk");
+        console.log(data)
       }, 2000);
     });
   };
@@ -69,6 +70,7 @@ const FindLocationForm = ({ typeCoordinate, zoneOption, rowOptions }) => {
   return (
     <Wrapper onSubmit={handleSubmit(onSubmit)}>
       {fields.map((item, index) => {
+        console.log(errors)
         return (
           <div key={item.id}>
             <WrapperInput>
