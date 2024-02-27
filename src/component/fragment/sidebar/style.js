@@ -7,6 +7,9 @@ export const Wrapper = styled.aside`
   z-index: 410;
   background-color: #EFEFEF;
   transition: 0.2s linear;
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none; 
 
   &.closedBar {
     width: 2.9rem;

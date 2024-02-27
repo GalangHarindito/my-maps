@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const regexAlphabeth = new RegExp(/^[0-9.]*$/);
+const regexAlphabeth = new RegExp(/^[0-9.-]*$/);
 
 export const findLocationValidationLatLong = z.object({
   coordinates: z.array(

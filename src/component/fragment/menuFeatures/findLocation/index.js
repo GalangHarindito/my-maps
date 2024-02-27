@@ -2,9 +2,12 @@ import { useState } from "react";
 import RadioGroup from "component/base/radioGroup";
 import FindLocationForm from "component/fragment/form/findLocationForm";
 import { Wrapper } from "./style";
+import { coordinateType } from "recoil/coordinateData";
+import { useSetRecoilState } from "recoil";
 
 const FindLocation = () => {
   const [valueRadio, setValueRadio] = useState("latLong");
+  const setTypeCoordinate = useSetRecoilState(coordinateType)
 
   const coordinatesTypes = [
     { id: 1, label: "Lat/Long", value: "latLong" },
@@ -18,8 +21,6 @@ const FindLocation = () => {
   });
 
   const rowOptions = [
-    { id: 1, value: "A", label: "A" },
-    { id: 2, value: "B", label: "B" },
     { id: 3, value: "C", label: "C" },
     { id: 4, value: "D", label: "D" },
     { id: 5, value: "E", label: "E" },
@@ -46,6 +47,7 @@ const FindLocation = () => {
 
   const handleChange = (value) => {
     setValueRadio(value.target.value);
+    setTypeCoordinate(() => value.target.value)
   };
 
   return (

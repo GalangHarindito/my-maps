@@ -9,7 +9,7 @@ export const Wrapper = styled.section`
   justify-content: center;
   align-items: center;
   z-index:500;
-  background-color: #FFF;
+  background-color: #EFEFEF;
   padding:0.1rem;
 `;
 

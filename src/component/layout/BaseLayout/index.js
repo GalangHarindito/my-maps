@@ -18,7 +18,7 @@ const PageBase = ({children}) => {
             <main>
                 {children}
             </main>
-            {/* <Footer /> */}
+            <Footer />
         </div>
     )
 }

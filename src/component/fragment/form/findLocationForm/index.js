@@ -17,9 +17,22 @@ import {
   findLocationValidationUtm,
 } from "utils/validationForm";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import {
+  coordinateState,
+  coordinateStatStateUtm,
+  convertionStateUtmLatlong,
+} from "recoil/coordinateData";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 const FindLocationForm = ({ typeCoordinate, zoneOption, rowOptions }) => {
+  
+  const [valueCoordinate, updateValueCoordinate] =
+    useRecoilState(coordinateState);
+  const [valueCoordinateUtm, updateValueCoordinateUtm] = useRecoilState(
+    coordinateStatStateUtm
+  );
+  const [resultConvert] = useRecoilValue(convertionStateUtmLatlong);
   const {
     handleSubmit,
     control,
@@ -36,41 +49,50 @@ const FindLocationForm = ({ typeCoordinate, zoneOption, rowOptions }) => {
     },
     mode: "onChange",
   });
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: "coordinates",
   });
 
   const onSubmit = (data) => {
-    
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-        console.log(data)
-      }, 2000);
-    });
+    const index = data.coordinates.length - 1;
+    if (typeCoordinate === "latLong") {
+      updateValueCoordinate(() => data.coordinates);
+    } else {
+      updateValueCoordinateUtm(() => data.coordinates);
+    }
+    console.log(valueCoordinateUtm)
+    console.log(resultConvert)
+
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve();
+
+    //     console.log(valueCoordinate)
+    //   }, 2000);
+    // });
   };
 
-  useEffect(() => {
-    for (let i = 0; i < fields.length; i++) {
-      if (i > 0) {
-        return remove(i);
-      }
-      reset({
-        coordinates: [
-          {
-            latitude: "",
-            longitude: "",
-          },
-        ],
-      });
-    }
-  }, [typeCoordinate]);
+  // useEffect(() => {
+  //   for (let i = 0; i < fields.length; i++) {
+  //     if (i > 0) {
+  //       return remove(i);
+  //     }
+  //     reset({
+  //       coordinates: [
+  //         {
+  //           latitude: "",
+  //           longitude: "",
+  //         },
+  //       ],
+  //     });
+  //   }
+  // }, [typeCoordinate]);
 
   return (
     <Wrapper onSubmit={handleSubmit(onSubmit)}>
       {fields.map((item, index) => {
-        console.log(errors)
         return (
           <div key={item.id}>
             <WrapperInput>
@@ -175,7 +197,7 @@ const FindLocationForm = ({ typeCoordinate, zoneOption, rowOptions }) => {
           variant="primary"
           type="submit"
           loading={isSubmitting}
-          disabled={isSubmitting && 'disabled'}
+          disabled={isSubmitting && "disabled"}
         />
         {/* <Button label="Reset" variant="secondary" type='button' 
         onClick={() =>{

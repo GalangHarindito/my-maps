@@ -8,6 +8,7 @@ import {
 } from "./style";
 import { useState } from "react";
 import FindLocation from "component/fragment/menuFeatures/findLocation";
+import MapPolygon from "component/fragment/menuFeatures/polygon";
 
 const MenuBar = () => {
   const [id, setId] = useState("");
@@ -18,7 +19,7 @@ const MenuBar = () => {
       menuFeatures = <FindLocation />;
       break;
     case 2:
-      menuFeatures = "kkkk";
+      menuFeatures = <MapPolygon />;
       break;
     case 3:
       menuFeatures = "jjjj";
