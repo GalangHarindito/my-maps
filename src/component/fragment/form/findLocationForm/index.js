@@ -17,13 +17,11 @@ import {
   findLocationValidationUtm,
 } from "utils/validationForm";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
 import {
   coordinateState,
   coordinateStatStateUtm,
-  convertionStateUtmLatlong,
 } from "recoil/coordinateData";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 
 const FindLocationForm = ({ typeCoordinate, zoneOption, rowOptions }) => {
   
@@ -32,7 +30,6 @@ const FindLocationForm = ({ typeCoordinate, zoneOption, rowOptions }) => {
   const [valueCoordinateUtm, updateValueCoordinateUtm] = useRecoilState(
     coordinateStatStateUtm
   );
-  const [resultConvert] = useRecoilValue(convertionStateUtmLatlong);
   const {
     handleSubmit,
     control,
@@ -62,12 +59,11 @@ const FindLocationForm = ({ typeCoordinate, zoneOption, rowOptions }) => {
     } else {
       updateValueCoordinateUtm(() => data.coordinates);
     }
-    console.log(valueCoordinateUtm)
-    console.log(resultConvert)
+
 
     // return new Promise((resolve) => {
     //   setTimeout(() => {
-    //     resolve();
+    //     resolve(); 
 
     //     console.log(valueCoordinate)
     //   }, 2000);
@@ -115,6 +111,7 @@ const FindLocationForm = ({ typeCoordinate, zoneOption, rowOptions }) => {
                   />
                 )}
               />
+              
               <Controller
                 control={control}
                 name={`coordinates.${index}.longitude`}

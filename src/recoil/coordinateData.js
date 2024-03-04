@@ -20,16 +20,16 @@ export const convertionStateUtmLatlong = selector({
   get: ({ get }) => {
     const coordinates = get(coordinateStatStateUtm);
     const resultConvert = coordinates.map((item) => {
-      console.log(item)
-      const res = convert.convertUtmToLatLng(
+      let res = {}
+      const objCoordinate = convert.convertUtmToLatLng(
         Number(item.latitude),
         Number(item.longitude),
         Number(item.zone),
         item.row
       );
-      return res
+      
+      return objCoordinate
     });
-    console.log(resultConvert)
     return resultConvert;
   },
 });

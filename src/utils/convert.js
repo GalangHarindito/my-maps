@@ -142,7 +142,7 @@ UTMLatLng.prototype.convertUtmToLatLng = function (UTMEasting, UTMNorthing, UTMZ
     var Long = (D - (1 + 2 * T1 + C1) * D * D * D / 6 + (5 - 2 * C1 + 28 * T1 - 3 * C1 * C1 + 8 * eccPrimeSquared + 24 * T1 * T1)
             * D * D * D * D * D / 120) / Math.cos(phi1Rad);
     Long = LongOrigin + this.toDegrees(Long);
-    return [Lat, Long];
+    return {latitude:Lat, longitude:Long};
 };
 
 UTMLatLng.prototype.getUtmLetterDesignator = function (latitude) {
