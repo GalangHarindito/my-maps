@@ -7,13 +7,18 @@ export const coordinateType = atom({
 })
 export const coordinateState = atom({
   key: "coordinateState",
-  default: [{ id: null, latitude: "", longitude: "" }],
+  default: [],
 });
 
 export const coordinateStatStateUtm = atom({
   key: "coordinateStatStateUtm",
   default: [{ id: null, latitude: "", longitude: "", zone: "", row: "" }],
 });
+
+export const coordinateMarkers = atom({
+  key: "coordinateMarkers",
+  default: []
+})
 
 export const convertionStateUtmLatlong = selector({
   key: "convertionStateUtmLatlong",
@@ -33,3 +38,10 @@ export const convertionStateUtmLatlong = selector({
     return resultConvert;
   },
 });
+
+export const coordinateListState = selector({
+  key: "coordinateListState",
+  get:({get}) => {
+     
+  }
+})

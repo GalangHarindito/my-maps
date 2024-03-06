@@ -10,14 +10,15 @@ const Button = ({
   variant,
   size,
   icon,
-  disabled
+  disabled,
+  hidden
 }) => {
   return (
     <ButtonStyle
       type={type}
       name={name}
       id={id}
-      className={[variant, size ? size : "", disabled].join(" ")}
+      className={[variant, size ? size : "", disabled, hidden].join(" ")}
       onClick={onClick}
       disabled={disabled}
     >

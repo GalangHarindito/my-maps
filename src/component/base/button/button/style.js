@@ -32,6 +32,7 @@ export const ButtonStyle = styled.button`
   }
   &.secondary{
     background-color: #B0BBCD;
+    color: #000;
   }
 
   &.info{
@@ -54,5 +55,9 @@ export const ButtonStyle = styled.button`
 
   &.disabled{
     background-color: #8CBAFF;
+  }
+
+  &.hidden {
+    display: none;
   }
 `;

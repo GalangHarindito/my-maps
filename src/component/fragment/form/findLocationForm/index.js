@@ -8,8 +8,10 @@ import {
   Wrapper,
   WrapperInput,
   WrapperSelect,
-  WrapperButton,
-  WrapperDelete,
+  WrapperList,
+  ListItem,
+  WrapperListItem,
+  WrapperButtonList,
 } from "./style";
 import { AiOutlineDelete, AiOutlinePlus } from "react-icons/ai";
 import {
@@ -19,14 +21,17 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   coordinateState,
+  coordinateMarkers,
   coordinateStatStateUtm,
 } from "recoil/coordinateData";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { getId } from "utils/general";
 
 const FindLocationForm = ({ typeCoordinate, zoneOption, rowOptions }) => {
-  
-  const [valueCoordinate, updateValueCoordinate] =
-    useRecoilState(coordinateState);
+  const setCoordinateState = useSetRecoilState(coordinateState);
+  const listCoordinateState = useRecoilValue(coordinateState);
+  const setListMarkers = useSetRecoilState(coordinateMarkers);
+  const resetList = useResetRecoilState(coordinateState);
   const [valueCoordinateUtm, updateValueCoordinateUtm] = useRecoilState(
     coordinateStatStateUtm
   );
@@ -41,172 +46,164 @@ const FindLocationForm = ({ typeCoordinate, zoneOption, rowOptions }) => {
         ? findLocationValidationLatLong
         : findLocationValidationUtm
     ),
-    defaultValues: {
-      coordinates: [{ latitude: "", longitude: "" }],
-    },
+    defaultValues: { id: "", latitude: "", longitude: "" },
     mode: "onChange",
   });
 
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "coordinates",
-  });
-
   const onSubmit = (data) => {
-    const index = data.coordinates.length - 1;
-    if (typeCoordinate === "latLong") {
-      updateValueCoordinate(() => data.coordinates);
-    } else {
-      updateValueCoordinateUtm(() => data.coordinates);
-    }
-
+    setCoordinateState((oldState) => [
+      ...oldState,
+      {
+        id: getId(),
+        latitude: data.latitude,
+        longitude: data.longitude,
+      },
+    ]);
 
     // return new Promise((resolve) => {
     //   setTimeout(() => {
-    //     resolve(); 
+    //     resolve();
 
     //     console.log(valueCoordinate)
     //   }, 2000);
     // });
   };
 
-  // useEffect(() => {
-  //   for (let i = 0; i < fields.length; i++) {
-  //     if (i > 0) {
-  //       return remove(i);
-  //     }
-  //     reset({
-  //       coordinates: [
-  //         {
-  //           latitude: "",
-  //           longitude: "",
-  //         },
-  //       ],
-  //     });
-  //   }
-  // }, [typeCoordinate]);
+  const removeItemAtIndex = (arr, index) => {
+    return [...arr.slice(0, index), ...arr.slice(index + 1)];
+  };
+
+  const handleDelete = (index) => {
+    const newList = removeItemAtIndex(listCoordinateState, index);
+
+    setCoordinateState(newList);
+  };
+
+  const handleToMap = () => {
+    setListMarkers(() => listCoordinateState);
+  };
 
   return (
-    <Wrapper onSubmit={handleSubmit(onSubmit)}>
-      {fields.map((item, index) => {
-        return (
-          <div key={item.id}>
-            <WrapperInput>
-              <Controller
-                control={control}
-                name={`coordinates.${index}.latitude`}
-                render={({ field: { onChange } }) => (
-                  <Input
-                    label={`${
-                      typeCoordinate === "latLong" ? "Latitude" : "Easting (X)"
-                    }`}
-                    error={errors.coordinates?.[index]?.latitude?.message}
-                    id="input-Lat"
-                    placeHolder={`${
-                      typeCoordinate === "latLong"
-                        ? "Exp: -6.187561"
-                        : "Exp: 702241.350"
-                    }`}
-                    onChange={onChange}
-                  />
-                )}
-              />
-              
-              <Controller
-                control={control}
-                name={`coordinates.${index}.longitude`}
-                render={({ field: { onChange } }) => (
-                  <Input
-                    label={`${
-                      typeCoordinate === "latLong"
-                        ? "Longitude"
-                        : "Northing (Y)"
-                    }`}
-                    id="input-Lat"
-                    error={errors.coordinates?.[index]?.longitude?.message}
-                    placeHolder={`${
-                      typeCoordinate === "latLong"
-                        ? "Exp: 106.827766"
-                        : "Exp: 9315714.183"
-                    }`}
-                    onChange={onChange}
-                  />
-                )}
-              />
-              {fields.length > 1 && (
-                <WrapperDelete>
-                  <MiniButton
-                    icon={<AiOutlineDelete size={18} />}
-                    type="button"
-                    onClick={() => remove(index)}
-                    variant="transparent"
-                    color="#FF5C02"
-                  />
-                </WrapperDelete>
+    <div>
+      <Wrapper onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <WrapperInput>
+            <Controller
+              control={control}
+              name={`latitude`}
+              render={({ field: { onChange } }) => (
+                <Input
+                  label={`${
+                    typeCoordinate === "latLong" ? "Latitude" : "Easting (X)"
+                  }`}
+                  error={errors.latitude?.message}
+                  id="input-Lat"
+                  placeHolder={`${
+                    typeCoordinate === "latLong"
+                      ? "Exp: -6.187561"
+                      : "Exp: 702241.350"
+                  }`}
+                  onChange={onChange}
+                />
               )}
-            </WrapperInput>
+            />
 
-            {typeCoordinate === "utm" && zoneOption && (
-              <WrapperSelect>
-                <Controller
-                  control={control}
-                  name={`coordinates.${index}.zone`}
-                  render={({ field: { onChange } }) => (
-                    <Select
-                      label="Zone"
-                      id="select-zone"
-                      options={zoneOption}
-                      error={errors.coordinates?.[index]?.zone?.message}
-                      onChange={onChange}
-                    />
-                  )}
+            <Controller
+              control={control}
+              name={`longitude`}
+              render={({ field: { onChange } }) => (
+                <Input
+                  label={`${
+                    typeCoordinate === "latLong" ? "Longitude" : "Northing (Y)"
+                  }`}
+                  id="input-Lat"
+                  error={errors.longitude?.message}
+                  placeHolder={`${
+                    typeCoordinate === "latLong"
+                      ? "Exp: 106.827766"
+                      : "Exp: 9315714.183"
+                  }`}
+                  onChange={onChange}
                 />
-                <Controller
-                  control={control}
-                  name={`coordinates.${index}.row`}
-                  render={({ field: { onChange } }) => (
-                    <Select
-                      label="Row"
-                      id="select-row"
-                      options={rowOptions}
-                      error={errors.coordinates?.[index]?.row?.message}
-                      onChange={onChange}
-                    />
-                  )}
-                />
-              </WrapperSelect>
-            )}
-          </div>
-        );
-      })}
-      <Button
-        label="Add Coordinate"
-        variant="dash"
-        type="button"
-        size="large"
-        icon={<AiOutlinePlus />}
-        disabled={isSubmitting}
-        onClick={() => append({ latitude: "", longitude: "" })}
-      />
-      <WrapperButton>
+              )}
+            />
+          </WrapperInput>
+
+          {typeCoordinate === "utm" && zoneOption && (
+            <WrapperSelect>
+              <Controller
+                control={control}
+                name={`zone`}
+                render={({ field: { onChange } }) => (
+                  <Select
+                    label="Zone"
+                    id="select-zone"
+                    options={zoneOption}
+                    error={errors.zone?.message}
+                    onChange={onChange}
+                  />
+                )}
+              />
+              <Controller
+                control={control}
+                name={`row`}
+                render={({ field: { onChange } }) => (
+                  <Select
+                    label="Row"
+                    id="select-row"
+                    options={rowOptions}
+                    error={errors.row?.message}
+                    onChange={onChange}
+                  />
+                )}
+              />
+            </WrapperSelect>
+          )}
+        </div>
+
         <Button
-          label="Submit"
-          variant="primary"
+          label="Add Coordinate"
+          variant="info"
           type="submit"
-          loading={isSubmitting}
-          disabled={isSubmitting && "disabled"}
+          size="large"
+          icon={<AiOutlinePlus />}
+          disabled={isSubmitting}
         />
-        {/* <Button label="Reset" variant="secondary" type='button' 
-        onClick={() =>{
-          reset({
-            latitude: "",
-            longitude: "",
-            row: "",
-            zone: ""
-          })
-        }} /> */}
-      </WrapperButton>
-    </Wrapper>
+      </Wrapper>
+      <WrapperList>
+        {listCoordinateState &&
+          listCoordinateState.map((item, index) => (
+            <WrapperListItem>
+              <ListItem>
+                {item.latitude} {item.longitude}
+              </ListItem>
+              <MiniButton
+                variant="transparent"
+                icon={<AiOutlineDelete />}
+                color="#ed4f2f"
+                onClick={() => handleDelete(index)}
+              />
+            </WrapperListItem>
+          ))}
+        <br />
+        {listCoordinateState && listCoordinateState.length > 0 && (
+          <WrapperButtonList>
+            <Button
+              label="Reset All"
+              variant="secondary"
+              type="button"
+              onClick={resetList}
+            />
+            <Button
+              label="Submit"
+              variant="primary"
+              type="submit"
+              onClick={() => handleToMap()}
+            />
+          </WrapperButtonList>
+        )}
+      </WrapperList>
+    </div>
   );
 };
 

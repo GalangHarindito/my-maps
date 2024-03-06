@@ -1,23 +1,24 @@
 import { useEffect, useState } from "react";
 import { Marker, Popup } from "react-leaflet";
 import { useRecoilValue } from "recoil";
-import { coordinateState } from "recoil/coordinateData";
+import { coordinateState, coordinateMarkers } from "recoil/coordinateData";
 import { coordinateType } from "recoil/coordinateData";
 import { convertionStateUtmLatlong } from "recoil/coordinateData";
 
 const MapMarker = () => {
-  const markerData = useRecoilValue(coordinateState)
-  const markerDataUtm = useRecoilValue(convertionStateUtmLatlong)
+  // const markerData = useRecoilValue(coordinateState)
+  // const markerDataUtm = useRecoilValue(convertionStateUtmLatlong)
+  const markers = useRecoilValue(coordinateMarkers)
 
-  const [ markers,setMarkers] = useState('')
+  // const [ markers,setMarkers] = useState('')
 
-  useEffect(() => {
-    if(coordinateType === 'latLong'){
-      setMarkers(markerData)
-    }else{
-      setMarkers(markerDataUtm)
-    }
-  }, [coordinateType])
+  // useEffect(() => {
+  //   if(coordinateType === 'latLong'){
+  //     setMarkers(markerData)
+  //   }else{
+  //     setMarkers(markerDataUtm)
+  //   }
+  // }, [coordinateType])
 
   return (
     <>
